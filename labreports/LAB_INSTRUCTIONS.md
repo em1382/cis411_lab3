@@ -213,6 +213,16 @@ Amongst the requests in this GraphQL server, there is one specific permiatation 
 1. Using New Relic, **identify and record the least performant request(s)**.
 2. Using the Transaction Trace capability in New Relic, identify which segment(s) in that request permiatation is/are the most problematic and **record your findings**.
 3. **Recommend a solution** for improving the performance of those most problematic request(s) / permiatation(s).
+```
+const getOrders = (parent, args, context, info) => {
+    return new Promise(resolve => {
+        newrelic.startSegment('getOrders', false, () => {
+              resolve(queryOrders(args.query))
+            })
+        })
+    })
+}
+```
 
 
 
